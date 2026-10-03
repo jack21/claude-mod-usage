@@ -33,7 +33,7 @@ const setup = (on: any, world: { language?: string; env?: Record<string, string>
 const countdowns = async ($: any, clock: any) => {
   await $.session.start({ cwd: '/tmp', surface: 'desktop', isInteractive: true })
   await clock.settle()
-  const ui = await $.ui.mount({ plugin: 'quota-bars', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
+  const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
   const svgs = await ui.findAll({ type: 'Svg' })
   return svgs.filter((svg: any) => String(svg.props.source).includes('ui-monospace')).map((svg: any) => svg.props.alt)
 }

@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · **日本語** · [हिन्दी](README.hi.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Bahasa Indonesia](README.id.md)
 
@@ -8,7 +8,7 @@
 - **5時間の上限**：セッションの使用量と、リセットまでの残り時間
 - **7日間の上限**：週の使用量と、リセットまでの残り時間
 
-![quota-bars のプレビュー](../assets/preview.png)
+![claude-mod-usage のプレビュー](../assets/preview.png)
 
 ## 特長
 
@@ -34,7 +34,7 @@
 次のプロンプトをコピーして Claude Code（Desktop・CLI・VS Code のどれでも可）に貼り付けると、Claude が Mod の取得・設定の変更・確認まで行います：
 
 ```text
-Claude Code の Mod「quota-bars」をインストールしてください：https://github.com/jack21/quota-bars を ~/.claude/mods/quota-bars に clone します（フォルダーが既にあれば、そこで git pull してください）。次に、そのフォルダーを ~/.claude/settings.json の "env" ブロックにある CLAUDE_CODE_PLUGIN_DIRS に追加します。既に登録されているフォルダーは残し（macOS/Linux は ":"、Windows は ";" で連結）、ほかの設定は変更しないでください。settings.json が有効な JSON であることを確認し、`claude plugin validate ~/.claude/mods/quota-bars` を実行してから、新しいセッションを始めるよう案内してください。
+Claude Code の Mod「claude-mod-usage」をインストールしてください：https://github.com/jack21/claude-mod-usage を ~/.claude/mods/claude-mod-usage に clone します（フォルダーが既にあれば、そこで git pull してください）。次に、そのフォルダーを ~/.claude/settings.json の "env" ブロックにある CLAUDE_CODE_PLUGIN_DIRS に追加します。既に登録されているフォルダーは残し（macOS/Linux は ":"、Windows は ";" で連結）、ほかの設定は変更しないでください。settings.json が有効な JSON であることを確認し、`claude plugin validate ~/.claude/mods/claude-mod-usage` を実行してから、新しいセッションを始めるよう案内してください。
 ```
 
 ### 手動インストール
@@ -42,7 +42,7 @@ Claude Code の Mod「quota-bars」をインストールしてください：htt
 1. ファイルを取得します。
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. Claude Code に読み込ませます。Claude Code Desktop ではコマンドラインフラグを渡せないため、`~/.claude/settings.json` の `env` ブロックにフォルダを追加します。
@@ -50,7 +50,7 @@ Claude Code の Mod「quota-bars」をインストールしてください：htt
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@ Claude Code の Mod「quota-bars」をインストールしてください：htt
 
 3. 新しいセッションを開始します。最初の応答のあとにバーが表示されます。
 
-CLI で一度だけ試す場合：`claude --plugin-dir ~/.claude/mods/quota-bars`
+CLI で一度だけ試す場合：`claude --plugin-dir ~/.claude/mods/claude-mod-usage`
 
 任意：同じ `env` ブロックに `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"` を追加すると、Mod のファイルを編集したときに Desktop が自動で再読み込みします。
 
@@ -78,7 +78,7 @@ CLI で一度だけ試す場合：`claude --plugin-dir ~/.claude/mods/quota-bars
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · **简体中文** · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Bahasa Indonesia](README.id.md)
 
@@ -8,7 +8,7 @@
 - **5 小时额度**：本时段的用量，以及距离重置的剩余时间
 - **7 天额度**：本周的用量，以及距离重置的剩余时间
 
-![quota-bars 预览](../assets/preview.png)
+![claude-mod-usage 预览](../assets/preview.png)
 
 ## 功能
 
@@ -34,7 +34,7 @@
 复制下面这段 prompt，粘贴到 Claude Code（Desktop、CLI 或 VS Code 均可），Claude 会自动下载 Mod、修改设置并检查：
 
 ```text
-帮我安装 quota-bars 这个 Claude Code Mod：把 https://github.com/jack21/quota-bars clone 到 ~/.claude/mods/quota-bars（文件夹已存在就改为在其中执行 git pull）。然后把这个文件夹加入 ~/.claude/settings.json 的 "env" 块中的 CLAUDE_CODE_PLUGIN_DIRS，保留已有的文件夹（macOS/Linux 用 ":"、Windows 用 ";" 连接），其他设置都不要改。确认 settings.json 仍是有效的 JSON，运行 `claude plugin validate ~/.claude/mods/quota-bars`，最后提醒我新开一个 session。
+帮我安装 claude-mod-usage 这个 Claude Code Mod：把 https://github.com/jack21/claude-mod-usage clone 到 ~/.claude/mods/claude-mod-usage（文件夹已存在就改为在其中执行 git pull）。然后把这个文件夹加入 ~/.claude/settings.json 的 "env" 块中的 CLAUDE_CODE_PLUGIN_DIRS，保留已有的文件夹（macOS/Linux 用 ":"、Windows 用 ";" 连接），其他设置都不要改。确认 settings.json 仍是有效的 JSON，运行 `claude plugin validate ~/.claude/mods/claude-mod-usage`，最后提醒我新开一个 session。
 ```
 
 ### 手动安装
@@ -42,7 +42,7 @@
 1. 获取文件：
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. 让 Claude Code 加载它。Claude Code Desktop 无法传入命令行参数，因此需要把文件夹添加到 `~/.claude/settings.json` 的 `env` 块中：
@@ -50,7 +50,7 @@
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@
 
 3. 新建一个会话。收到第一条回复后，进度条就会出现。
 
-如果只想在 CLI 中临时试用：`claude --plugin-dir ~/.claude/mods/quota-bars`。
+如果只想在 CLI 中临时试用：`claude --plugin-dir ~/.claude/mods/claude-mod-usage`。
 
 可选：在同一个 `env` 块中加入 `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"`，这样编辑 Mod 文件时 Desktop 会自动重新加载。
 
@@ -78,7 +78,7 @@
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

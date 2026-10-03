@@ -32,7 +32,7 @@ const isTime = (svg: any) => String(svg.props.source).includes('ui-monospace')
 test('desktop draws three bars with icons, outlined percents and countdowns', async ($, on) => {
   setup(on)
   await $.session.measure(MEASURE)
-  const ui = await $.ui.mount({ plugin: 'quota-bars', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
+  const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
   const svgs = await ui.findAll({ type: 'Svg' })
 
   // icon + bar + percent per block, plus a countdown where there is one (context has none)
@@ -70,7 +70,7 @@ for (const columns of [80, 120, 200]) {
   test(`desktop ${columns} columns: equal bars, blocks sized by content, row fully used`, async ($, on) => {
     setup(on)
     await $.session.measure(MEASURE)
-    const ui = await $.ui.mount({ plugin: 'quota-bars', surface: 'desktop', component: 'AbovePrompt', props: { ...PROPS, bodyColumns: columns } })
+    const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: { ...PROPS, bodyColumns: columns } })
     const segments = (await Promise.all(['context', 'five', 'week'].map((key) => ui.find({ key })))) as any[]
     const segmentWidths = segments.map((seg) => seg.props.width as number)
 
@@ -89,12 +89,12 @@ for (const columns of [80, 120, 200]) {
 test('terminal is left to the engine (the status line already shows usage)', async ($, on) => {
   setup(on)
   await $.session.measure(MEASURE)
-  const ui = await $.ui.mount({ plugin: 'quota-bars', surface: 'terminal', component: 'AbovePrompt', props: PROPS })
+  const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'terminal', component: 'AbovePrompt', props: PROPS })
   expect(await ui.findAll({ type: 'Svg' })).toHaveLength(0)
 })
 
 test('nothing is drawn before the first measurement', async ($, on) => {
   setup(on)
-  const ui = await $.ui.mount({ plugin: 'quota-bars', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
+  const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
   expect(await ui.findAll({ type: 'Svg' })).toHaveLength(0)
 })

@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [বাংলা](README.bn.md) · **Português** · [Русский](README.ru.md) · [Bahasa Indonesia](README.id.md)
 
@@ -8,7 +8,7 @@ Um Mod do Claude Code que mostra o seu uso do Claude em três barras de progress
 - **Limite de 5 horas**: o uso da sua sessão, com o tempo restante até ser redefinido
 - **Limite de 7 dias**: o seu uso semanal, com o tempo restante até ser redefinido
 
-![Prévia do quota-bars](../assets/preview.png)
+![Prévia do claude-mod-usage](../assets/preview.png)
 
 ## Recursos
 
@@ -34,7 +34,7 @@ Um Mod do Claude Code que mostra o seu uso do Claude em três barras de progress
 Copie este prompt e cole no Claude Code (Desktop, CLI ou VS Code). O Claude baixa o mod, atualiza suas configurações e as verifica:
 
 ```text
-Instale o mod do Claude Code quota-bars: clone https://github.com/jack21/quota-bars em ~/.claude/mods/quota-bars (se a pasta já existir, rode git pull nela). Depois adicione essa pasta a CLAUDE_CODE_PLUGIN_DIRS no bloco "env" de ~/.claude/settings.json, mantendo as pastas que já estiverem lá (separadas por ":" no macOS/Linux e ";" no Windows) e sem alterar nenhuma outra configuração. Confirme que o settings.json continua sendo um JSON válido, rode `claude plugin validate ~/.claude/mods/quota-bars` e me diga para abrir uma nova sessão.
+Instale o mod do Claude Code claude-mod-usage: clone https://github.com/jack21/claude-mod-usage em ~/.claude/mods/claude-mod-usage (se a pasta já existir, rode git pull nela). Depois adicione essa pasta a CLAUDE_CODE_PLUGIN_DIRS no bloco "env" de ~/.claude/settings.json, mantendo as pastas que já estiverem lá (separadas por ":" no macOS/Linux e ";" no Windows) e sem alterar nenhuma outra configuração. Confirme que o settings.json continua sendo um JSON válido, rode `claude plugin validate ~/.claude/mods/claude-mod-usage` e me diga para abrir uma nova sessão.
 ```
 
 ### Instalação manual
@@ -42,7 +42,7 @@ Instale o mod do Claude Code quota-bars: clone https://github.com/jack21/quota-b
 1. Baixe os arquivos:
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. Faça o Claude Code carregá-lo. O Claude Code Desktop não aceita flags de linha de comando, então adicione a pasta ao bloco `env` de `~/.claude/settings.json`:
@@ -50,7 +50,7 @@ Instale o mod do Claude Code quota-bars: clone https://github.com/jack21/quota-b
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@ Instale o mod do Claude Code quota-bars: clone https://github.com/jack21/quota-b
 
 3. Inicie uma nova sessão. As barras aparecem após a primeira resposta.
 
-Para testar uma única vez na CLI: `claude --plugin-dir ~/.claude/mods/quota-bars`.
+Para testar uma única vez na CLI: `claude --plugin-dir ~/.claude/mods/claude-mod-usage`.
 
 Opcional: adicione `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"` ao mesmo bloco `env` para que o Desktop recarregue o mod quando você editar os arquivos dele.
 
@@ -78,7 +78,7 @@ Para fixar um idioma sem usar o menu, adicione isto a `~/.claude/settings.json`:
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

@@ -16,7 +16,7 @@ export type Locale = 'en' | 'zh-CN' | 'zh-TW' | 'ja' | 'hi' | 'es' | 'ar' | 'fr'
 
 declare module 'claude-code' {
   interface PluginState {
-    'quota-bars': {
+    'mod-usage': {
       usage: QuotaUsage | null // latest measurement
       locale: Locale // resolved display language
     }

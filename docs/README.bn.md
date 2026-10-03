@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · **বাংলা** · [Português](README.pt.md) · [Русский](README.ru.md) · [Bahasa Indonesia](README.id.md)
 
@@ -8,7 +8,7 @@
 - **৫ ঘণ্টার সীমা**: আপনার সেশনের ব্যবহার, আর রিসেট হতে কত সময় বাকি
 - **৭ দিনের সীমা**: আপনার সাপ্তাহিক ব্যবহার, আর রিসেট হতে কত সময় বাকি
 
-![quota-bars প্রিভিউ](../assets/preview.png)
+![claude-mod-usage প্রিভিউ](../assets/preview.png)
 
 ## বৈশিষ্ট্য
 
@@ -34,7 +34,7 @@
 এই prompt কপি করে Claude Code-এ (Desktop, CLI বা VS Code) পেস্ট করুন। Claude নিজেই mod ডাউনলোড করবে, সেটিংস বদলাবে এবং যাচাই করবে:
 
 ```text
-quota-bars নামের Claude Code mod ইনস্টল করো: https://github.com/jack21/quota-bars কে ~/.claude/mods/quota-bars-এ clone করো (ফোল্ডারটি আগে থেকে থাকলে সেখানে git pull চালাও)। তারপর ফোল্ডারটি ~/.claude/settings.json-এর "env" ব্লকের CLAUDE_CODE_PLUGIN_DIRS-এ যোগ করো। আগে থেকে থাকা ফোল্ডারগুলো রেখে দাও (macOS/Linux-এ ":" আর Windows-এ ";" দিয়ে জোড়ো) এবং অন্য কোনো সেটিং বদলাবে না। settings.json এখনও বৈধ JSON কি না নিশ্চিত করো, `claude plugin validate ~/.claude/mods/quota-bars` চালাও, তারপর আমাকে নতুন session শুরু করতে বলো।
+claude-mod-usage নামের Claude Code mod ইনস্টল করো: https://github.com/jack21/claude-mod-usage কে ~/.claude/mods/claude-mod-usage-এ clone করো (ফোল্ডারটি আগে থেকে থাকলে সেখানে git pull চালাও)। তারপর ফোল্ডারটি ~/.claude/settings.json-এর "env" ব্লকের CLAUDE_CODE_PLUGIN_DIRS-এ যোগ করো। আগে থেকে থাকা ফোল্ডারগুলো রেখে দাও (macOS/Linux-এ ":" আর Windows-এ ";" দিয়ে জোড়ো) এবং অন্য কোনো সেটিং বদলাবে না। settings.json এখনও বৈধ JSON কি না নিশ্চিত করো, `claude plugin validate ~/.claude/mods/claude-mod-usage` চালাও, তারপর আমাকে নতুন session শুরু করতে বলো।
 ```
 
 ### ম্যানুয়াল ইনস্টল
@@ -42,7 +42,7 @@ quota-bars নামের Claude Code mod ইনস্টল করো: https:/
 1. ফাইলগুলো নিন:
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. Claude Code-কে এটি লোড করতে বলুন। Claude Code Desktop-এ কমান্ড-লাইন ফ্ল্যাগ দেওয়া যায় না, তাই ফোল্ডারটি `~/.claude/settings.json`-এর `env` ব্লকে যোগ করুন:
@@ -50,7 +50,7 @@ quota-bars নামের Claude Code mod ইনস্টল করো: https:/
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@ quota-bars নামের Claude Code mod ইনস্টল করো: https:/
 
 3. একটি নতুন সেশন শুরু করুন। প্রথম উত্তরের পরেই বারগুলো দেখা যাবে।
 
-CLI-তে একবার চালিয়ে দেখতে: `claude --plugin-dir ~/.claude/mods/quota-bars`।
+CLI-তে একবার চালিয়ে দেখতে: `claude --plugin-dir ~/.claude/mods/claude-mod-usage`।
 
 ঐচ্ছিক: একই `env` ব্লকে `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"` যোগ করুন, তাহলে mod-এর ফাইল এডিট করলে Desktop সেটি আবার লোড করবে।
 
@@ -78,7 +78,7 @@ CLI-তে একবার চালিয়ে দেখতে: `claude --plug
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

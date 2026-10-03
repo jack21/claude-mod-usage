@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · **繁體中文** · [日本語](README.ja.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Bahasa Indonesia](README.id.md)
 
@@ -8,7 +8,7 @@
 - **5 小時額度**：本階段的用量，以及距離重設的剩餘時間
 - **7 天額度**：本週的用量，以及距離重設的剩餘時間
 
-![quota-bars 預覽](../assets/preview.png)
+![claude-mod-usage 預覽](../assets/preview.png)
 
 ## 功能
 
@@ -34,7 +34,7 @@
 複製下面這段 prompt，貼進 Claude Code（Desktop、CLI 或 VS Code 都可以），Claude 會自動下載 Mod、修改設定並檢查：
 
 ```text
-幫我安裝 quota-bars 這個 Claude Code Mod：把 https://github.com/jack21/quota-bars clone 到 ~/.claude/mods/quota-bars（資料夾已存在就改在裡面執行 git pull）。接著把這個資料夾加進 ~/.claude/settings.json 的 "env" 區塊裡的 CLAUDE_CODE_PLUGIN_DIRS，保留原本已有的資料夾（macOS/Linux 用 ":"、Windows 用 ";" 串接），其他設定都不要動。確認 settings.json 仍是有效的 JSON，執行 `claude plugin validate ~/.claude/mods/quota-bars`，最後提醒我開一個新的 session。
+幫我安裝 claude-mod-usage 這個 Claude Code Mod：把 https://github.com/jack21/claude-mod-usage clone 到 ~/.claude/mods/claude-mod-usage（資料夾已存在就改在裡面執行 git pull）。接著把這個資料夾加進 ~/.claude/settings.json 的 "env" 區塊裡的 CLAUDE_CODE_PLUGIN_DIRS，保留原本已有的資料夾（macOS/Linux 用 ":"、Windows 用 ";" 串接），其他設定都不要動。確認 settings.json 仍是有效的 JSON，執行 `claude plugin validate ~/.claude/mods/claude-mod-usage`，最後提醒我開一個新的 session。
 ```
 
 ### 手動安裝
@@ -42,7 +42,7 @@
 1. 取得檔案：
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. 讓 Claude Code 載入它。Claude Code Desktop 無法傳入命令列參數，因此請把資料夾加到 `~/.claude/settings.json` 的 `env` 區塊：
@@ -50,7 +50,7 @@
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@
 
 3. 開啟新的工作階段。收到第一則回覆後，進度條就會出現。
 
-若只想在 CLI 中臨時試用：`claude --plugin-dir ~/.claude/mods/quota-bars`。
+若只想在 CLI 中臨時試用：`claude --plugin-dir ~/.claude/mods/claude-mod-usage`。
 
 選用：在同一個 `env` 區塊加入 `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"`，之後編輯 Mod 的檔案時，Desktop 就會自動重新載入。
 
@@ -78,7 +78,7 @@
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

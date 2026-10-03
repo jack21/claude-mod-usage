@@ -4,7 +4,7 @@ import type { EngineInterface, Register, SessionContextUsage, SessionRateLimit }
 import type { Locale, QuotaUsage, QuotaWindow } from '../types'
 import { DEFAULT_LOCALE, MESSAGES, localeFromLanguageName, normalizeLocale } from './i18n'
 
-// quota-bars: Claude context / 5-hour / 7-day usage as gradient progress bars above the prompt
+// claude-mod-usage: Claude context / 5-hour / 7-day usage as gradient progress bars above the prompt
 
 // Bar keys: React key, SVG id prefix and icon table key
 const SegmentKey = {
@@ -54,8 +54,8 @@ const ICON_LINE_COLOR = '#8a8a8a' // mid grey, visible on dark and light themes
 const ICON_FONT = `font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-weight="700"`
 
 // Session state: latest usage and the resolved display language
-const usage = atom({ plugin: 'quota-bars', key: 'usage' } as const, null)
-const locale = atom({ plugin: 'quota-bars', key: 'locale' } as const, DEFAULT_LOCALE)
+const usage = atom({ plugin: 'mod-usage', key: 'usage' } as const, null)
+const locale = atom({ plugin: 'mod-usage', key: 'locale' } as const, DEFAULT_LOCALE)
 
 // Picks one rate-limit window and converts resetsAt to epoch ms
 const _pickWindow = (rateLimits: SessionRateLimit[], kind: string): QuotaWindow | undefined => {

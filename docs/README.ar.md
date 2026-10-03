@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · **العربية** · [Français](README.fr.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · [Bahasa Indonesia](README.id.md)
 
@@ -8,7 +8,7 @@
 - **حد 5 ساعات**: استخدامك في الجلسة، مع الوقت المتبقي حتى إعادة التعيين
 - **حد 7 أيام**: استخدامك الأسبوعي، مع الوقت المتبقي حتى إعادة التعيين
 
-![معاينة quota-bars](../assets/preview.png)
+![معاينة claude-mod-usage](../assets/preview.png)
 
 ## الميزات
 
@@ -34,7 +34,7 @@
 انسخ هذا الـ prompt والصقه في Claude Code (Desktop أو CLI أو VS Code)، وسيقوم Claude بتنزيل الـ mod وتحديث الإعدادات والتحقق منها:
 
 ```text
-ثبّت mod الخاص بـ Claude Code المسمى quota-bars: انسخ https://github.com/jack21/quota-bars عبر git clone إلى ~/.claude/mods/quota-bars (وإذا كان المجلد موجودًا فشغّل git pull داخله بدلًا من ذلك). ثم أضف هذا المجلد إلى CLAUDE_CODE_PLUGIN_DIRS داخل كتلة "env" في ~/.claude/settings.json، مع الإبقاء على أي مجلدات موجودة (افصل بينها بـ ":" على macOS/Linux و";" على Windows) ودون تغيير أي إعداد آخر. تأكد أن settings.json ما زال JSON صالحًا، وشغّل `claude plugin validate ~/.claude/mods/quota-bars`، ثم اطلب مني بدء جلسة جديدة.
+ثبّت mod الخاص بـ Claude Code المسمى claude-mod-usage: انسخ https://github.com/jack21/claude-mod-usage عبر git clone إلى ~/.claude/mods/claude-mod-usage (وإذا كان المجلد موجودًا فشغّل git pull داخله بدلًا من ذلك). ثم أضف هذا المجلد إلى CLAUDE_CODE_PLUGIN_DIRS داخل كتلة "env" في ~/.claude/settings.json، مع الإبقاء على أي مجلدات موجودة (افصل بينها بـ ":" على macOS/Linux و";" على Windows) ودون تغيير أي إعداد آخر. تأكد أن settings.json ما زال JSON صالحًا، وشغّل `claude plugin validate ~/.claude/mods/claude-mod-usage`، ثم اطلب مني بدء جلسة جديدة.
 ```
 
 ### التثبيت اليدوي
@@ -42,7 +42,7 @@
 1. احصل على الملفات:
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. اطلب من Claude Code تحميله. لا يمكن تمرير خيارات سطر الأوامر إلى Claude Code Desktop، لذا أضف المجلد إلى كتلة `env` في `~/.claude/settings.json`:
@@ -50,7 +50,7 @@
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@
 
 3. ابدأ جلسة جديدة. ستظهر الأشرطة بعد أول رد.
 
-لتجربته مرة واحدة في CLI: `claude --plugin-dir ~/.claude/mods/quota-bars`.
+لتجربته مرة واحدة في CLI: `claude --plugin-dir ~/.claude/mods/claude-mod-usage`.
 
 اختياري: أضف `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"` إلى كتلة `env` نفسها كي يعيد Desktop تحميل الـ Mod عند تعديل ملفاته.
 
@@ -78,7 +78,7 @@
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

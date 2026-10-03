@@ -1,4 +1,4 @@
-# quota-bars
+# claude-mod-usage
 
 [English](../README.md) · [简体中文](README.zh-CN.md) · [繁體中文](README.zh-TW.md) · [日本語](README.ja.md) · [हिन्दी](README.hi.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [বাংলা](README.bn.md) · [Português](README.pt.md) · [Русский](README.ru.md) · **Bahasa Indonesia**
 
@@ -8,7 +8,7 @@ Mod Claude Code yang menampilkan penggunaan Claude Anda dalam tiga bilah progres
 - **Batas 5 jam**: penggunaan sesi Anda, beserta sisa waktu hingga direset
 - **Batas 7 hari**: penggunaan mingguan Anda, beserta sisa waktu hingga direset
 
-![Pratinjau quota-bars](../assets/preview.png)
+![Pratinjau claude-mod-usage](../assets/preview.png)
 
 ## Fitur
 
@@ -34,7 +34,7 @@ Mod Claude Code yang menampilkan penggunaan Claude Anda dalam tiga bilah progres
 Salin prompt ini lalu tempel di Claude Code (Desktop, CLI, atau VS Code). Claude akan mengunduh mod, memperbarui pengaturan, dan memeriksanya:
 
 ```text
-Pasang mod Claude Code bernama quota-bars: clone https://github.com/jack21/quota-bars ke ~/.claude/mods/quota-bars (kalau foldernya sudah ada, jalankan git pull di sana). Lalu tambahkan folder itu ke CLAUDE_CODE_PLUGIN_DIRS di blok "env" pada ~/.claude/settings.json, pertahankan folder yang sudah ada (gabungkan dengan ":" di macOS/Linux dan ";" di Windows), dan jangan ubah pengaturan lain. Pastikan settings.json tetap JSON yang valid, jalankan `claude plugin validate ~/.claude/mods/quota-bars`, lalu ingatkan saya untuk membuka sesi baru.
+Pasang mod Claude Code bernama claude-mod-usage: clone https://github.com/jack21/claude-mod-usage ke ~/.claude/mods/claude-mod-usage (kalau foldernya sudah ada, jalankan git pull di sana). Lalu tambahkan folder itu ke CLAUDE_CODE_PLUGIN_DIRS di blok "env" pada ~/.claude/settings.json, pertahankan folder yang sudah ada (gabungkan dengan ":" di macOS/Linux dan ";" di Windows), dan jangan ubah pengaturan lain. Pastikan settings.json tetap JSON yang valid, jalankan `claude plugin validate ~/.claude/mods/claude-mod-usage`, lalu ingatkan saya untuk membuka sesi baru.
 ```
 
 ### Instalasi manual
@@ -42,7 +42,7 @@ Pasang mod Claude Code bernama quota-bars: clone https://github.com/jack21/quota
 1. Unduh berkasnya:
 
    ```bash
-   git clone https://github.com/jack21/quota-bars ~/.claude/mods/quota-bars
+   git clone https://github.com/jack21/claude-mod-usage ~/.claude/mods/claude-mod-usage
    ```
 
 2. Minta Claude Code untuk memuatnya. Claude Code Desktop tidak dapat menerima flag baris perintah, jadi tambahkan foldernya ke blok `env` di `~/.claude/settings.json`:
@@ -50,7 +50,7 @@ Pasang mod Claude Code bernama quota-bars: clone https://github.com/jack21/quota
    ```json
    {
      "env": {
-       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/quota-bars"
+       "CLAUDE_CODE_PLUGIN_DIRS": "~/.claude/mods/claude-mod-usage"
      }
    }
    ```
@@ -59,7 +59,7 @@ Pasang mod Claude Code bernama quota-bars: clone https://github.com/jack21/quota
 
 3. Mulai sesi baru. Bilah akan muncul setelah balasan pertama.
 
-Untuk mencoba sekali di CLI: `claude --plugin-dir ~/.claude/mods/quota-bars`.
+Untuk mencoba sekali di CLI: `claude --plugin-dir ~/.claude/mods/claude-mod-usage`.
 
 Opsional: tambahkan `"CLAUDE_CODE_PLUGIN_DIR_WATCH": "1"` ke blok `env` yang sama agar Desktop memuat ulang mod saat Anda mengedit berkasnya.
 
@@ -78,7 +78,7 @@ Untuk mengunci bahasa tanpa lewat menu, tambahkan ini ke `~/.claude/settings.jso
 ```json
 {
   "pluginConfigs": {
-    "quota-bars": { "language": "ja" }
+    "mod-usage": { "language": "ja" }
   }
 }
 ```

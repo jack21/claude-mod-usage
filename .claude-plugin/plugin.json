@@ -1,5 +1,5 @@
 {
-  "name": "quota-bars",
+  "name": "mod-usage",
   "version": "1.0.0",
   "description": "Shows Claude context, 5-hour and 7-day usage as gradient progress bars above the prompt (Claude Code Desktop / VS Code / mobile). 12 languages.",
   "author": { "name": "Jack Chiang" },
