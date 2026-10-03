@@ -98,3 +98,26 @@ test('nothing is drawn before the first measurement', async ($, on) => {
   const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
   expect(await ui.findAll({ type: 'Svg' })).toHaveLength(0)
 })
+
+test('content drawn by mods beneath is stacked under the bars', async ($, on) => {
+  mock.clock(on, { now: NOW })
+  on('session.measure', (_$: any, e: any) => ({ changed: e.changed }))
+  on('ui.render', ($: any, e: any) => {
+    const { Box, Text } = $.ui.resolve(e)
+    return (
+      <Box key="below-mod">
+        <Text>below mod</Text>
+      </Box>
+    )
+  })
+  await $.session.measure(MEASURE)
+  const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
+  const root: any = await ui.drawn()
+
+  expect(root.props.flexDirection).toBe('column')
+  expect(root.children).toHaveLength(2)
+  expect(root.children[0].props.width).toBe(PROPS.bodyColumns)
+  expect(root.children[1].key ?? root.children[1].props?.key).toBe('below-mod')
+  const texts = (await ui.findAll({ type: 'Text' })).map((one: any) => one.text).join('')
+  expect(texts).toContain('below mod')
+})

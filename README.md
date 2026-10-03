@@ -19,6 +19,7 @@ A Claude Code Mod that shows your Claude usage as three gradient progress bars r
 - Updates after every turn and whenever a limit moves by a whole point; the countdown ticks every minute
 - 12 languages, detected automatically
 - Leaves the terminal alone: the CLI already has a status line for this
+- Plays well with other mods above the prompt: whatever they draw there is stacked under the bars instead of being covered
 
 ![All 12 languages](assets/languages.png)
 

@@ -19,6 +19,7 @@ Un Mod Claude Code qui affiche votre consommation Claude sous forme de trois bar
 - Mise à jour après chaque tour et dès qu'une limite bouge d'un point entier ; le compte à rebours avance chaque minute
 - 12 langues, détectées automatiquement
 - Ne touche pas au terminal : la CLI dispose déjà d'une ligne d'état pour cela
+- Cohabite avec les autres mods au-dessus du prompt : ce qu’ils y affichent s’empile sous les barres au lieu d’être masqué
 
 ![Les 12 langues](../assets/languages.png)
 

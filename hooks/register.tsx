@@ -297,10 +297,19 @@ export const register: Register = (on, options) => {
 
     // One row, no wrapping
     const segments = segmentInputs.map(renderSegment)
-
-    return (
+    const barsRow = (
       <Box flexDirection="row" flexWrap="nowrap" columnGap={SEGMENT_GAP} width={e.props.bodyColumns}>
         {segments}
+      </Box>
+    )
+
+    // Play well with other band mods: whatever the mods beneath draw is stacked under the bars instead of replaced
+    const below = await next(e)
+    if (below.type === 'engine') return barsRow
+    return (
+      <Box flexDirection="column">
+        {barsRow}
+        {below}
       </Box>
     )
   })

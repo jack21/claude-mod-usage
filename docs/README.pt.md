@@ -19,6 +19,7 @@ Um Mod do Claude Code que mostra o seu uso do Claude em três barras de progress
 - Atualiza após cada turno e sempre que um limite muda um ponto inteiro; a contagem regressiva avança a cada minuto
 - 12 idiomas, detectados automaticamente
 - Não mexe no terminal: a CLI já tem uma linha de status para isso
+- Convive com outros mods acima do prompt: o que eles desenham ali fica empilhado abaixo das barras, sem ser encoberto
 
 ![Todos os 12 idiomas](../assets/languages.png)
 

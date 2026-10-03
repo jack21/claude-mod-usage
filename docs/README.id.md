@@ -19,6 +19,7 @@ Mod Claude Code yang menampilkan penggunaan Claude Anda dalam tiga bilah progres
 - Diperbarui setiap giliran dan setiap kali suatu batas berubah satu poin penuh; hitung mundur berjalan tiap menit
 - 12 bahasa, terdeteksi otomatis
 - Tidak mengubah terminal: CLI sudah punya status line untuk keperluan ini
+- Bisa berdampingan dengan mod lain di atas prompt: apa pun yang mereka tampilkan di sana ditumpuk di bawah bilah, tidak tertutup
 
 ![Semua 12 bahasa](../assets/languages.png)
 
