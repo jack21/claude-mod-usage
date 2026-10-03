@@ -1,0 +1,17 @@
+{
+  "name": "quota-bars",
+  "version": "1.0.0",
+  "description": "Shows Claude context, 5-hour and 7-day usage as gradient progress bars above the prompt (Claude Code Desktop / VS Code / mobile). 12 languages.",
+  "author": { "name": "Jack Chiang" },
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "language": {
+      "type": "string",
+      "title": "Language",
+      "description": "Display language. auto = Claude Code language setting, then LC_ALL / LANG, then macOS system language, then English.",
+      "default": "auto",
+      "options": ["auto", "en", "zh-CN", "zh-TW", "ja", "hi", "es", "ar", "fr", "bn", "pt", "ru", "id"]
+    }
+  }
+}
