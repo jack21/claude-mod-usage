@@ -121,3 +121,27 @@ test('content drawn by mods beneath is stacked under the bars', async ($, on) =>
   const texts = (await ui.findAll({ type: 'Text' })).map((one: any) => one.text).join('')
   expect(texts).toContain('below mod')
 })
+
+test('extra windows (e.g. a per-model Fable limit) get their own bar; a spend limit does not', async ($, on) => {
+  setup(on)
+  const extraMeasure = {
+    ...MEASURE,
+    rateLimits: [
+      ...MEASURE.rateLimits,
+      { kind: 'seven_day_fable', percentUsed: 36, resetsAt: new Date(NOW + 2 * 86400e3 + 8 * 3600e3).toISOString() },
+      { kind: 'spend_limit', percentUsed: 10 }
+    ]
+  }
+  await $.session.measure(extraMeasure)
+  const ui = await $.ui.mount({ plugin: 'mod-usage', surface: 'desktop', component: 'AbovePrompt', props: PROPS })
+  const svgs = await ui.findAll({ type: 'Svg' })
+
+  expect(svgs.map((svg) => svg.props.alt).slice(11)).toEqual(['Fable', 'Fable 36% (2d8h)', '36%', '2d8h'])
+  const fableIcon = svgs.filter(isIcon)[3]!
+  expect(String(fableIcon.props.source)).toContain('>F</text>')
+
+  // Four equal bars that still fit the row
+  const segments = (await Promise.all(['context', 'five', 'week', 'extra-seven_day_fable'].map((key) => ui.find({ key })))) as any[]
+  expect(new Set(segments.map((seg) => seg.children[1].props.width)).size).toBe(1)
+  expect(segments.reduce((sum, seg) => sum + (seg.props.width as number), 0) + 3 * 2).toBeLessThanOrEqual(PROPS.bodyColumns)
+})

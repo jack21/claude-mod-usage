@@ -1,7 +1,7 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register, SessionContextUsage, SessionRateLimit } from 'claude-code'
 
-import type { Locale, QuotaUsage, QuotaWindow } from '../types'
+import type { ExtraQuotaWindow, Locale, QuotaUsage, QuotaWindow } from '../types'
 import { DEFAULT_LOCALE, MESSAGES, localeFromLanguageName, normalizeLocale } from './i18n'
 
 // claude-mod-usage: Claude context / 5-hour / 7-day usage as gradient progress bars above the prompt
@@ -14,9 +14,13 @@ const SegmentKey = {
 } as const
 type TSegmentKey = (typeof SegmentKey)[keyof typeof SegmentKey]
 
+// Kinds with a bar of their own (or, for a gateway's spend limit, deliberately none); anything else is an extra bar
+const FIXED_KINDS = ['five_hour', 'seven_day', 'spend_limit']
+
 // What one bar draws
 interface ISegmentInput {
-  key: TSegmentKey // bar key
+  key: TSegmentKey | `extra-${string}` // bar key; extras carry the engine's kind
+  letter?: string // calendar-icon letter for an extra bar
   name: string // screen-reader name, localized
   percent: number // percent used, 0-100
   resetsAt?: number // reset time (epoch ms); the context bar has none
@@ -66,12 +70,26 @@ const _pickWindow = (rateLimits: SessionRateLimit[], kind: string): QuotaWindow 
   return Number.isNaN(resetsAt) ? { percent: found.percentUsed } : { percent: found.percentUsed, resetsAt }
 }
 
+// Every window that has no fixed bar (a per-model limit such as Fable's, once the engine reports one)
+const _extraWindows = (rateLimits: SessionRateLimit[]): ExtraQuotaWindow[] =>
+  rateLimits
+    .filter((limit) => !FIXED_KINDS.includes(limit.kind))
+    .map((limit) => ({ ...(_pickWindow(rateLimits, limit.kind) as QuotaWindow), kind: limit.kind }))
+
 // The fields session.measure and $.session.usage() share, as this mod's QuotaUsage
 const _toQuotaUsage = (context: SessionContextUsage, rateLimits: SessionRateLimit[]): QuotaUsage => ({
   contextPercent: context.percent,
   fiveHour: _pickWindow(rateLimits, 'five_hour'),
-  sevenDay: _pickWindow(rateLimits, 'seven_day')
+  sevenDay: _pickWindow(rateLimits, 'seven_day'),
+  extra: _extraWindows(rateLimits)
 })
+
+// Display name of an extra window: "seven_day_fable" → "Fable", "five_hour_opus" → "Opus"
+const _extraLabel = (kind: string): string => {
+  const words = kind.replace(/^(five_hour|seven_day)_?/, '').split('_').filter(Boolean)
+  if (words.length === 0) return kind
+  return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+}
 
 // Time left until reset, in the display language's format; empty once it has passed
 const _formatRemaining = (resetsAt: number | undefined, nowMs: number, messages: (typeof MESSAGES)[keyof typeof MESSAGES]): string => {
@@ -125,6 +143,18 @@ const _iconSources: Record<TSegmentKey, (accent: string) => string> = {
     )
 }
 
+// Extra bars: the calendar with the model's initial in place of the "7"
+const _extraIcon = (letter: string, accent: string): string =>
+  _iconSvg(
+    `<rect x="2.25" y="3.5" width="13.5" height="12.75" rx="2.5" stroke="${ICON_LINE_COLOR}" stroke-width="1.5"/>` +
+      `<path d="M6 1.75V5M12 1.75V5M2.25 7.25h13.5" stroke="${ICON_LINE_COLOR}" stroke-width="1.5"/>` +
+      `<text x="9" y="11.6" text-anchor="middle" dominant-baseline="central" font-size="8.5" ${ICON_FONT} fill="${accent}">${_escapeXml(letter)}</text>`
+  )
+
+// The icon of one bar, fixed or extra
+const _segmentIcon = ({ key, letter }: ISegmentInput, accent: string): string =>
+  key in _iconSources ? _iconSources[key as TSegmentKey](accent) : _extraIcon(letter ?? '?', accent)
+
 // Percent label: outlined SVG text (Text has no outline); a fixed width/height keeps it from being stretched
 const _labelSvg = (label: string): { source: string; width: number } => {
   const width = Math.ceil(label.length * LABEL_CHAR_PX + 6)
@@ -164,7 +194,7 @@ const _timeSvg = (text: string, rtl = false): { source: string; width: number; c
 // The image is stretched to the column width, so the bar is a round-capped line with non-scaling-stroke:
 // stroke width and caps are computed in screen space and stay circular. Caps reach half a stroke past the
 // endpoints, so the endpoints are inset by an estimated px width to keep the caps inside the image.
-const _barSvg = (key: TSegmentKey, percent: number, barCells: number): string => {
+const _barSvg = (key: ISegmentInput['key'], percent: number, barCells: number): string => {
   const filled = Math.min(100, Math.max(0, percent))
   const inset = (BAR_HEIGHT / 2 / (barCells * CELL_PX_ESTIMATE)) * 1000
   const trackEnd = 1000 - inset
@@ -250,7 +280,11 @@ export const register: Register = (on, options) => {
     const segmentCandidates: (ISegmentInput | null)[] = [
       current.contextPercent === undefined ? null : { key: SegmentKey.CONTEXT, name: messages.context, percent: current.contextPercent },
       current.fiveHour ? { key: SegmentKey.FIVE, name: messages.fiveHour, percent: current.fiveHour.percent, resetsAt: current.fiveHour.resetsAt } : null,
-      current.sevenDay ? { key: SegmentKey.WEEK, name: messages.sevenDay, percent: current.sevenDay.percent, resetsAt: current.sevenDay.resetsAt } : null
+      current.sevenDay ? { key: SegmentKey.WEEK, name: messages.sevenDay, percent: current.sevenDay.percent, resetsAt: current.sevenDay.resetsAt } : null,
+      ...(current.extra ?? []).map((window): ISegmentInput => {
+        const label = _extraLabel(window.kind)
+        return { key: `extra-${window.kind}`, name: label, letter: label.charAt(0), percent: window.percent, resetsAt: window.resetsAt }
+      })
     ]
     const segmentInputs = segmentCandidates.filter((segment) => segment !== null)
     if (segmentInputs.length === 0) return next(e)
@@ -267,7 +301,8 @@ export const register: Register = (on, options) => {
     const barLen = Math.max(MIN_BAR_LEN, Math.floor((e.props.bodyColumns - totalGap - totalFixed) / segmentInputs.length))
 
     // One block: icon (accent follows usage) + bar (outlined percent centred on it) + reset countdown
-    const renderSegment = ({ key, name, percent }: ISegmentInput, index: number) => {
+    const renderSegment = (segment: ISegmentInput, index: number) => {
+      const { key, name, percent } = segment
       const percentLabel = `${Math.round(percent)}%`
       const remaining = remainings[index] ?? ''
       const timeSvg = timeSvgs[index] ?? null
@@ -278,7 +313,7 @@ export const register: Register = (on, options) => {
       return (
         <Box key={key} flexDirection="row" alignItems="center" gap={1} width={segmentWidth} flexGrow={1} flexShrink={1}>
           <Box width={ICON_CELLS} flexShrink={0} justifyContent="center">
-            <Svg source={_iconSources[key](_accentColor(percent))} alt={name} width={ICON_SIZE} height={ICON_SIZE} />
+            <Svg source={_segmentIcon(segment, _accentColor(percent))} alt={name} width={ICON_SIZE} height={ICON_SIZE} />
           </Box>
           <Box position="relative" flexDirection="column" justifyContent="center" width={barLen} flexGrow={1} flexShrink={1}>
             <Svg source={_barSvg(key, percent, barLen)} alt={alt} height={BAR_HEIGHT} />
